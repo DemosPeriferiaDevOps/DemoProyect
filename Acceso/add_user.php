@@ -82,3 +82,5 @@
   </div>
 
 <?php include_once('layouts/footer.php'); ?>
+
+<h1> Hola mundo </h1>
