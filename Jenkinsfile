@@ -3,54 +3,54 @@ pipeline{
   label 'master'
     }
 
-        environment {
-        def prefijo="jenkinsfile_demo_php"
-        def ejecucionActual="$ejecucionActual"
-        def anterior="((BUILD_NUMBER-1))"
+//         environment {
+//         def prefijo="jenkinsfile_demo_php"
+//         def ejecucionActual="$ejecucionActual"
+//         def anterior="((BUILD_NUMBER-1))"
         def scannerHome = tool 'sonar_scaner'
         }
         
-        stages{
-            stage('environments') {
-                steps{
+//         stages{
+//             stage('environments') {
+//                 steps{
 
-                    sh 'sudo -s'
-                    sh 'export PATH=/sbin:/bin:/usr/sbin:/usr/bin'
-                    sh 'anterior=$((BUILD_NUMBER-1))'
-                    sh 'ejecucionActual=$(docker ps |grep "${prefijo}"ContainerBack|cut -f1 -d/ )'
-                    sh 'echo actualmente con la ejecucion $BUILD_NUMBER, ejecucion anterior $anterior'
-                    sh 'echo Ejecucion actual $ejecucionActual'
-                    sh 'echo ${prefijo}'
-                }
-            }
+//                     sh 'sudo -s'
+//                     sh 'export PATH=/sbin:/bin:/usr/sbin:/usr/bin'
+//                     sh 'anterior=$((BUILD_NUMBER-1))'
+//                     sh 'ejecucionActual=$(docker ps |grep "${prefijo}"ContainerBack|cut -f1 -d/ )'
+//                     sh 'echo actualmente con la ejecucion $BUILD_NUMBER, ejecucion anterior $anterior'
+//                     sh 'echo Ejecucion actual $ejecucionActual'
+//                     sh 'echo ${prefijo}'
+//                 }
+//             }
 
-            stage('Build image') {
-                steps{
-                    //Construccion de la imagen a apartir de los cambios generados
-                    sh """docker build -t "${prefijo}":$BUILD_NUMBER ."""
-                }
-            }
+//             stage('Build image') {
+//                 steps{
+//                     //Construccion de la imagen a apartir de los cambios generados
+//                     sh """docker build -t "${prefijo}":$BUILD_NUMBER ."""
+//                 }
+//             }
             
-            /*stage('Stop Container') {
-                steps{
-                    //Detiene la ejecucion anterior
-                    sh """
-                    if [ ! -z "$prefijo:$anterior" ] 
-                    then
-                    docker stop $prefijo:$anterior
-                    docker rm $prefijo:$anterior
-                    fi
-                    """
-                }
-            }*/
+//             /*stage('Stop Container') {
+//                 steps{
+//                     //Detiene la ejecucion anterior
+//                     sh """
+//                     if [ ! -z "$prefijo:$anterior" ] 
+//                     then
+//                     docker stop $prefijo:$anterior
+//                     docker rm $prefijo:$anterior
+//                     fi
+//                     """
+//                 }
+//             }*/
             
             
-            stage('Start Container') {
-                steps{
-                    //Iniciar el contenedor
-                    sh """docker run -i -p 8080:80 --name "$prefijo"Container$BUILD_NUMBER -d "$prefijo":$BUILD_NUMBER"""
-                }
-            }
+//             stage('Start Container') {
+//                 steps{
+//                     //Iniciar el contenedor
+//                     sh """docker run -i -p 8080:80 --name "$prefijo"Container$BUILD_NUMBER -d "$prefijo":$BUILD_NUMBER"""
+//                 }
+//             }
 
             stage('Prepare properties sonar') {
                 steps{
@@ -68,11 +68,11 @@ pipeline{
                 }
             }
 
-            stage('Delete properties sonar') {
-                steps{
-                    sh "sudo rm -r /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar_scaner/conf/sonar-scanner.properties"
-                }
-            } 
+//             stage('Delete properties sonar') {
+//                 steps{
+//                     sh "sudo rm -r /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar_scaner/conf/sonar-scanner.properties"
+//                 }
+//             } 
                   
         }
 }                    
