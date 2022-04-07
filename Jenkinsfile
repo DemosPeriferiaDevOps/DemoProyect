@@ -3,7 +3,7 @@ pipeline{
   label 'master'
     }
 
-//         environment {
+         environment {
 //         def prefijo="jenkinsfile_demo_php"
 //         def ejecucionActual="$ejecucionActual"
 //         def anterior="((BUILD_NUMBER-1))"
