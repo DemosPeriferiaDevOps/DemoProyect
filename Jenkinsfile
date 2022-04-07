@@ -4,9 +4,6 @@ pipeline{
     }
 
         environment {
-        def prefijo="jenkinsfile_demo_php"
-        def ejecucionActual="$ejecucionActual"
-        def anterior="((BUILD_NUMBER-1))"
         def scannerHome = tool 'sonar_scaner'
         }
         
